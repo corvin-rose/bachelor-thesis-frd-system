@@ -1,0 +1,28 @@
+<div class="content">
+  <div class="side-bar">
+    <app-history [history]="history"></app-history>
+  </div>
+  <div class="detection-frame">
+    <div class="wrapper">
+      <p>
+        Beginnen Sie, indem Sie etwas Text in das Textfeld unten eingeben und
+        auf "Erkennen" klicken, um zu überprüfen, ob die Bewertung gefälscht ist
+        oder nicht.
+      </p>
+
+      <mat-form-field class="review-input">
+        <mat-label>Bewertung</mat-label>
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="5"
+          placeholder="Tippen Sie eine Bewertung ein..."
+        ></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" routerLink="/detection">
+        Erkennen
+      </button>
+    </div>
+  </div>
+</div>
