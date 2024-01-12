@@ -12,7 +12,7 @@ class FRDService:
         probability = model.classify(text)
         result = Authenticity.FAKE if probability >= 0.5 else Authenticity.REAL
 
-        if Authenticity.REAL:
+        if result == Authenticity.REAL:
             probability = 1 - probability
 
         classification_result = ClassificationResult(text, result, probability)

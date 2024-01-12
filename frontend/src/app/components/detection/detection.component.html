@@ -17,12 +17,21 @@
           cdkTextareaAutosize
           cdkAutosizeMinRows="5"
           placeholder="Tippen Sie eine Bewertung ein..."
+          #reviewInput
         ></textarea>
       </mat-form-field>
 
-      <button mat-raised-button color="primary" routerLink="/detection">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="checkReview(reviewInput.value)"
+      >
         Erkennen
       </button>
+
+      <div class="space"></div>
+
+      <app-result [result]="result"></app-result>
     </div>
   </div>
 </div>

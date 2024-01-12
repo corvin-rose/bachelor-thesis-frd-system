@@ -12,4 +12,4 @@ class FRDController(BaseController):
         return self.execute_secured(request, self.__service.classify(text))
 
     def post(self, request):
-        return Response({"message": "POST-Anfrage erhalten"})
+        return self.execute_secured(request, self.__service.classify(request.data))

@@ -5,7 +5,7 @@
 }
 
 .side-bar {
-  width: 400px;
+  width: 400px !important;
   padding: 5px 10px;
   /* https://smoothshadows.com/#djEsMSw1LDAuMDgsMTIsMCwwLCMwMzA3MTIsI2YzZjRmNiwjZmZmZmZmLDI%3D */
   box-shadow:
@@ -32,4 +32,8 @@
 
 .review-input {
   width: 100%;
+}
+
+.space {
+  height: 100px;
 }

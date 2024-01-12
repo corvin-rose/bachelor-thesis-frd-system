@@ -1,0 +1,36 @@
+<div *ngIf="result" class="content">
+  <h2>Result</h2>
+
+  <em [class]="isFake() ? 'fake' : 'real'">{{ result.input_text }}</em>
+
+  <p><strong>Probabilities</strong></p>
+  <table>
+    <tr>
+      <td>{{ isFake() ? "Fake" : "Real" }}</td>
+      <td class="bar">
+        <mat-progress-bar
+          mode="determinate"
+          [value]="resultProbability()"
+        ></mat-progress-bar>
+      </td>
+      <td class="hint">
+        <span>{{ resultProbability() }}%</span>
+      </td>
+    </tr>
+    <tr>
+      <td>{{ isFake() ? "Real" : "Fake" }}</td>
+      <td class="bar">
+        <mat-progress-bar
+          class="faded"
+          mode="determinate"
+          [value]="100 - resultProbability()"
+        ></mat-progress-bar>
+      </td>
+      <td class="hint">
+        <span>{{ round(100 - resultProbability()) }}%</span>
+      </td>
+    </tr>
+  </table>
+  <div class="bar"></div>
+  <div class="bar"></div>
+</div>

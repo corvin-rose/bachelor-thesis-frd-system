@@ -57,3 +57,10 @@ body {
   justify-content: space-between;
   flex-grow: 1;
 }
+
+.snackbar-error {
+  --mdc-snackbar-container-color: var(--color-warn) !important;
+}
+.snackbar-error * {
+  color: #fff !important;
+}

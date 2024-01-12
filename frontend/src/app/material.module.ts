@@ -22,6 +22,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatListModule } from '@angular/material/list';
+import { MatRippleModule } from '@angular/material/core';
 
 const MaterialComponents = [
   MatButtonModule,
@@ -47,6 +49,8 @@ const MaterialComponents = [
   MatProgressBarModule,
   MatDialogModule,
   MatAutocompleteModule,
+  MatListModule,
+  MatRippleModule,
 ];
 
 @NgModule({
