@@ -1,5 +1,11 @@
 .content {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.history {
+  flex-grow: 1;
 }
 
 .no-history {
@@ -22,4 +28,35 @@
 }
 .history-item button:hover > mat-icon {
   color: var(--color-primary) !important;
+}
+.history-item span {
+  user-select: none;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  transform: translateX(10px);
+}
+
+.real,
+.fake {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.real {
+  background: var(--color-green);
+}
+.fake {
+  background: var(--color-red);
+}
+
+.system-info {
+  color: var(--color-hint);
+  margin: 10px 15px;
+  font-size: 10px;
+  line-height: 15px;
+  text-align: center;
+  user-select: none;
 }

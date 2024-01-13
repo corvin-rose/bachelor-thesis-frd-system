@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 
-const DEFAULT_ERROR: string = 'A technical error has been occurred';
+const DEFAULT_ERROR: string = 'Ein technischer Fehler ist aufgetreten';
 
 @Injectable({
   providedIn: 'root',

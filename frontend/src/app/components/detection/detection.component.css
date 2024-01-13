@@ -17,8 +17,10 @@
 }
 
 .detection-frame {
-  flex-grow: 1;
   padding: 20px 30px;
+  width: 100%;
+  height: calc(100% - 60px);
+  overflow-y: auto;
 }
 
 .wrapper {
@@ -32,6 +34,10 @@
 
 .review-input {
   width: 100%;
+}
+
+.review-len {
+  color: var(--color-hint);
 }
 
 .space {

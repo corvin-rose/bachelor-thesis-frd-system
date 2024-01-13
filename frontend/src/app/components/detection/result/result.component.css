@@ -1,6 +1,7 @@
 .content em {
   display: block;
   margin-bottom: 40px;
+  word-wrap: anywhere;
 }
 .content h2 {
   margin: 0;

@@ -1,6 +1,10 @@
 <div class="content">
   <div class="side-bar">
-    <app-history [history]="history"></app-history>
+    <app-history
+      [history]="history"
+      (historyClicked)="historyClick($event)"
+      (historyUpdated)="historyUpdated()"
+    ></app-history>
   </div>
   <div class="detection-frame">
     <div class="wrapper">
@@ -17,21 +21,50 @@
           cdkTextareaAutosize
           cdkAutosizeMinRows="5"
           placeholder="Tippen Sie eine Bewertung ein..."
+          [formControl]="reviewFormControl"
+          [errorStateMatcher]="errorMatcher"
           #reviewInput
         ></textarea>
+        <mat-hint class="review-len"
+          >{{ reviewInput.value.length }} / 512</mat-hint
+        >
+        <mat-error *ngIf="reviewFormControl.hasError('required')"
+          >Geben Sie eine Bewertung ein!</mat-error
+        >
+        <mat-error
+          *ngIf="
+            reviewFormControl.hasError('minLength') &&
+            !reviewFormControl.hasError('required')
+          "
+          >Eine Bewertung sollte aus min. 3 Zeichen bestehen!</mat-error
+        >
+        <mat-error *ngIf="reviewFormControl.hasError('maxLength')"
+          >{{ reviewInput.value.length }} / 512</mat-error
+        >
       </mat-form-field>
 
       <button
+        *ngIf="!loading"
         mat-raised-button
         color="primary"
         (click)="checkReview(reviewInput.value)"
       >
         Erkennen
       </button>
+      <button
+        *ngIf="loading"
+        mat-raised-button
+        class="loading-button"
+        [disabled]="true"
+      >
+        <mat-spinner [diameter]="20"></mat-spinner>
+      </button>
 
       <div class="space"></div>
 
       <app-result [result]="result"></app-result>
+
+      <div class="space"></div>
     </div>
   </div>
 </div>

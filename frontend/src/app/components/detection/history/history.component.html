@@ -1,28 +1,42 @@
 <div class="content">
-  <div *ngIf="history.length !== 0; else noHistory">
-    <mat-list>
-      <mat-list-item matRipple *ngFor="let item of history" class="history-item"
-        ><span>{{ item }}</span>
-        <button
-          mat-icon-button
-          [matMenuTriggerFor]="menu"
-          class="no-hover no-ripple"
-        >
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>delete</mat-icon>
-            <span>Löschen</span>
-          </button>
-        </mat-menu>
-      </mat-list-item>
-    </mat-list>
-  </div>
-
-  <ng-template #noHistory>
-    <div class="no-history">
-      <p>Keine Historie</p>
+  <div class="history">
+    <div *ngIf="history?.length !== 0; else noHistory">
+      <mat-list>
+        <mat-list-item
+          *ngFor="let item of history.reverse()"
+          matRipple
+          class="history-item"
+          (click)="itemClick($event, item)"
+          ><span>{{ trimText(item.input_text) }}</span>
+          <div class="actions">
+            <div
+              [class]="item.result == Authenticity.FAKE ? 'fake' : 'real'"
+            ></div>
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              class="no-hover no-ripple"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </div>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="deleteHistoryItem(item)">
+              <mat-icon>delete</mat-icon>
+              <span>Löschen</span>
+            </button>
+          </mat-menu>
+        </mat-list-item>
+      </mat-list>
     </div>
-  </ng-template>
+
+    <ng-template #noHistory>
+      <div class="no-history">
+        <p>Keine Historie</p>
+      </div>
+    </ng-template>
+  </div>
+  <p class="system-info">
+    Bachelorarbeit C.R. - Klassifikation von gefälschten online Bewertungen
+  </p>
 </div>

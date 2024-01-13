@@ -1,9 +1,9 @@
 <div *ngIf="result" class="content">
-  <h2>Result</h2>
+  <h2>Ergebnis</h2>
 
   <em [class]="isFake() ? 'fake' : 'real'">{{ result.input_text }}</em>
 
-  <p><strong>Probabilities</strong></p>
+  <p><strong>Wahrscheinlicheiten</strong></p>
   <table>
     <tr>
       <td>{{ isFake() ? "Fake" : "Real" }}</td>
