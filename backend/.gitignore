@@ -89,6 +89,3 @@ local_settings.py
 .env
 db.sqlite3
 
-
-# Ignore PyTorch Models
-*.pth
