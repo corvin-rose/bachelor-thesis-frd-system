@@ -4,9 +4,9 @@ from torch.utils.data import Dataset
 from transformers import BertTokenizer
 
 '''
-    ReviewDataset Klasse
-    
-    https://pytorch.org/tutorials/beginner/basics/data_tutorial.html#creating-a-custom-dataset-for-your-files
+ReviewDataset Klasse
+
+Siehe: https://pytorch.org/tutorials/beginner/basics/data_tutorial.html#creating-a-custom-dataset-for-your-files
 '''
 class ReviewDataset(Dataset):
 
@@ -15,35 +15,30 @@ class ReviewDataset(Dataset):
         self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
         self.max_len = max_len
 
+    '''
+    Ermittelt größe des Datensatzes
+    '''
     def __len__(self):
         return len(self.dataframe)
 
+    '''
+    Gibt eine tokenisierte Dateninstanz aus dem Datensatz zurück
+    '''
     def __getitem__(self, index):
+        # Text extrahieren
         text = str(self.dataframe.iloc[index]['text'])
+        # Label extrahieren
         label = int(self.dataframe.iloc[index]['label_index'])
 
-        # https://huggingface.co/docs/transformers/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.encode_plus
+        # Siehe: https://huggingface.co/docs/transformers/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.encode_plus
         inputs = self.tokenizer.encode_plus(
-            text,
-            # add_special_tokens=True,
-            max_length=self.max_len,
-            truncation=True,
-            padding='max_length',
-            #cls_token=True,
-            #return_token_type_ids=True,
-            #return_attention_mask=True,
-            return_tensors='pt'  # Returns PyTorch tensors
+            text,                       # Eingabe Text
+            max_length=self.max_len,    # Maximale Länge für Tokenisierung (wichtig, um padding zu bestimmen)
+            truncation=True,            # Zu lange Eingaben werden abgeschnitten
+            padding='max_length',       # Padding auf die maximale Länge setzen
+            return_tensors='pt'         # In PyTorch Tensors umwandeln
         )
-        #ids = inputs['input_ids'].squeeze()  # Remove single-dimensional entries from the shape
-        #mask = inputs['attention_mask'].squeeze()
-        #token_type_ids = inputs['token_type_ids'].squeeze()
+        # Label in Tensor umwandeln
         label_tensor = torch.tensor(label, dtype=torch.float32).unsqueeze(0)
 
         return inputs, label_tensor
-
-        return {
-            'ids': ids,
-            'mask': mask,
-            'token_type_ids': token_type_ids,
-            'label': torch.tensor(label, dtype=torch.float32).unsqueeze(0)  # Convert label to tensor
-        }
