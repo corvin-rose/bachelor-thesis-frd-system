@@ -4,12 +4,11 @@ from backend.port.adapter.bert_class import load_bert_model
 
 
 class FRDService:
-    def __init__(self, model="bert"):
-        self.__model = model
+    def __init__(self, model=load_bert_model()):
+        self.model = model
 
     def classify(self, text: str):
-        model = load_bert_model()
-        probability = model.classify(text)
+        probability = self.model.classify(text)
         result = Authenticity.FAKE if probability >= 0.5 else Authenticity.REAL
 
         if result == Authenticity.REAL:

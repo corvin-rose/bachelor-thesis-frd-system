@@ -4,5 +4,5 @@ from backend.port.web.frd_controller import FRDController
 
 
 urlpatterns = [
-    path('frd/', FRDController.as_view()),
+    path('frd/', FRDController.as_view(), name='frd'),
 ]
