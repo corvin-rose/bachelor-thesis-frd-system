@@ -3,7 +3,7 @@
     <div *ngIf="history?.length !== 0; else noHistory">
       <mat-list>
         <mat-list-item
-          *ngFor="let item of history.reverse()"
+          *ngFor="let item of historyList()"
           matRipple
           class="history-item"
           (click)="itemClick($event, item)"
@@ -13,6 +13,7 @@
               [class]="item.result == Authenticity.FAKE ? 'fake' : 'real'"
             ></div>
             <button
+              [id]="item.key"
               mat-icon-button
               [matMenuTriggerFor]="menu"
               class="no-hover no-ripple"

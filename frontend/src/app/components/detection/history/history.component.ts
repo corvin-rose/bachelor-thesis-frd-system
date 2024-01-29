@@ -29,12 +29,14 @@ export class HistoryComponent {
     }
   }
 
-  canRipple(): boolean {
-    return false;
-  }
-
   trimText(text: string): string {
     return text.length >= 30 ? text.substring(0, 30) + '...' : text;
+  }
+
+  historyList(): any[] {
+    return (this.history ?? [])
+      .map((h) => h as any)
+      .sort((a, b) => +b.timestamp - +a.timestamp);
   }
 
   protected readonly Authenticity = Authenticity;

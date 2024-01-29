@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-const HISTORY_STORAGE_KEY = 'history-storage';
+export const HISTORY_STORAGE_KEY = 'history-storage';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +10,9 @@ export class HistoryService {
 
   saveToHistory(data: any) {
     const key = this.generateStorageKey();
-    localStorage.setItem(key, JSON.stringify(data));
-    return { key: key, ...data };
+    const dataToSave = { timestamp: Date.now(), ...data };
+    localStorage.setItem(key, JSON.stringify(dataToSave));
+    return { key: key, ...dataToSave };
   }
 
   deleteFromHistory(key: string): void {

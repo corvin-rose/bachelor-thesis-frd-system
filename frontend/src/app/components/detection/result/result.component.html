@@ -9,11 +9,12 @@
       <td>{{ isFake() ? "Fake" : "Real" }}</td>
       <td class="bar">
         <mat-progress-bar
+          id="primary-bar"
           mode="determinate"
           [value]="resultProbability()"
         ></mat-progress-bar>
       </td>
-      <td class="hint">
+      <td id="primary-hint" class="hint">
         <span>{{ resultProbability() }}%</span>
       </td>
     </tr>
@@ -21,16 +22,15 @@
       <td>{{ isFake() ? "Real" : "Fake" }}</td>
       <td class="bar">
         <mat-progress-bar
+          id="secondary-bar"
           class="faded"
           mode="determinate"
           [value]="100 - resultProbability()"
         ></mat-progress-bar>
       </td>
-      <td class="hint">
+      <td id="secondary-hint" class="hint">
         <span>{{ round(100 - resultProbability()) }}%</span>
       </td>
     </tr>
   </table>
-  <div class="bar"></div>
-  <div class="bar"></div>
 </div>

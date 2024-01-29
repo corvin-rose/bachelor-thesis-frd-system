@@ -43,7 +43,6 @@ export class DetectionComponent implements OnInit {
   }
 
   checkReview(review: string): void {
-    console.log(this.reviewFormControl);
     if (!this.reviewFormControl.valid) {
       return;
     }
@@ -57,7 +56,7 @@ export class DetectionComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        this.snackbarService.showError(err);
+        this.snackbarService.handleError(err);
         this.loading = false;
       },
     });

@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 
-const DEFAULT_ERROR: string = 'Ein technischer Fehler ist aufgetreten';
+export const DEFAULT_ERROR_MESSAGE: string =
+  'Ein technischer Fehler ist aufgetreten';
 
 @Injectable({
   providedIn: 'root',
@@ -10,18 +11,15 @@ const DEFAULT_ERROR: string = 'Ein technischer Fehler ist aufgetreten';
 export class SnackbarService {
   constructor(private snackBar: MatSnackBar) {}
 
-  showError(httpError: HttpErrorResponse): void {
-    let message = '';
-    if (httpError.error != undefined && httpError.error.error != undefined) {
-      message = httpError.error.error + ': ' + httpError.error.message;
-    } else {
-      message = DEFAULT_ERROR;
+  handleError(httpError: HttpErrorResponse): void {
+    if (httpError.error != undefined) {
+      console.error(httpError.error);
     }
-    this.showCustomError(message);
-    console.error(message);
+    this.showError(DEFAULT_ERROR_MESSAGE);
+    console.error(DEFAULT_ERROR_MESSAGE);
   }
 
-  showCustomError(error: string): void {
+  showError(error: string): void {
     this.snackBar.open(error, 'Close', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
