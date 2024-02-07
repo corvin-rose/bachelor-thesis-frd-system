@@ -21,36 +21,41 @@ class BERTClass(torch.nn.Module):
         self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
         self.optimizer = torch.optim.Adam(params=self.parameters())
 
+        # Modell laden
         model_path = os.path.join(os.path.dirname(__file__), '../../resources/model_bert_ep25_lr1e-05_drp0.2.pth')
         self.checkpoint = torch.load(model_path)
         self.load_state_dict(self.checkpoint['model_state_dict'])
         self.optimizer.load_state_dict(self.checkpoint['optimizer_state_dict'])
 
-    def forward(self, ids, mask, token_type_ids):
-        output_1 = self.l1(ids, attention_mask=mask, token_type_ids=token_type_ids)['pooler_output']
-        output_2 = self.l2(output_1)
-        output = self.l3(output_2)
-        return output
+    def forward(self, ids, mask):
+        # Bertbase
+        out1 = self.l1(ids, attention_mask=mask)['pooler_output']
+        # Dropout
+        out2 = self.l2(out1)
+        # Linear
+        out3 = self.l3(out2)
+        return out3
 
     def prepare_text(self, text: str):
+        # Eingabetext tokenisieren
         inputs = self.tokenizer.encode_plus(
-            text,
-            add_special_tokens=True,
-            max_length=self.MAX_TEXT_LEN,
-            truncation=True,
-            padding='max_length',
-            pad_to_max_length=True,
-            return_attention_mask=True,
-            return_tensors='pt',  # PyTorch Tensoren
+            text,                           # Eingabe Text
+            max_length=self.MAX_TEXT_LEN,   # Maximale Länge für Tokenisierung (wichtig, um padding zu bestimmen)
+            truncation=True,                # Zu lange Eingaben werden abgeschnitten
+            padding='max_length',           # Padding auf die maximale Länge setzen
+            return_tensors='pt'             # In PyTorch Tensors umwandeln
         )
-        return inputs['input_ids'], inputs['attention_mask'], inputs['token_type_ids']
+        return inputs['input_ids'], inputs['attention_mask']
 
     def classify(self, text: str):
+        # Das Modell in den Evaluierungsmodus versetzen
         self.eval()
-
         with torch.no_grad():
-            input_ids, attention_mask, token_type_ids = self.prepare_text(text)
-            output = self.forward(input_ids, attention_mask, token_type_ids)
+            # Text vorbereiten
+            input_ids, attention_mask = self.prepare_text(text)
+            # Verhersage mithilfe des Modells treffen
+            output = self.forward(input_ids, attention_mask)
+            # Verhersage als Wahrscheinlichkeit interpretieren
             output = torch.sigmoid(output).cpu().detach().numpy()
 
         return output

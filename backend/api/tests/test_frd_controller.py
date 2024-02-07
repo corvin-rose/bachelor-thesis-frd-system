@@ -7,7 +7,7 @@ from unittest.mock import MagicMock, patch
 from backend.port.web.base_controller import API_KEY
 
 
-class FRDControllerTestCase(TestCase):
+class FrdControllerTestCase(TestCase):
     def setUp(self):
         # https://www.django-rest-framework.org/api-guide/testing/
         self.client = APIClient()

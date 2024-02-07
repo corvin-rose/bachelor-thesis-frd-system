@@ -2,12 +2,12 @@ from unittest.mock import MagicMock
 from django.test import TestCase
 
 from backend.core.domain.model.authenticity import Authenticity
-from backend.core.domain.service.frd_service import FRDService
+from backend.core.domain.service.frd_service import FrdService
 
 
-class FRDServiceTestCase(TestCase):
+class FrdServiceTestCase(TestCase):
     def setUp(self):
-        self.service = FRDService(model=None)
+        self.service = FrdService(model=None)
 
     def test_classify_real_text(self):
         # given

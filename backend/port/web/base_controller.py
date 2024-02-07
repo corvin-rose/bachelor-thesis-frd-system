@@ -5,7 +5,6 @@ from rest_framework.request import Request
 
 API_KEY = "m9JMDj5h8MJMzoKPcRRyfkjC"
 
-
 class BaseController(APIView):
     def execute_secured(self, request: Request, callback: Callable[[], Any]):
         if request.headers.get("Api-Key") == API_KEY:

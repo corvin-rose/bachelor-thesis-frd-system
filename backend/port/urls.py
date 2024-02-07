@@ -1,8 +1,8 @@
 from django.urls import path
 
-from backend.port.web.frd_controller import FRDController
+from backend.port.web.frd_controller import FrdController
 
 
 urlpatterns = [
-    path('frd/', FRDController.as_view(), name='frd'),
+    path('frd/', FrdController.as_view(), name='frd'),
 ]
