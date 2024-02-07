@@ -49,11 +49,15 @@ export class DetectionComponent implements OnInit {
 
     this.loading = true;
     this.frdService.checkReview(review).subscribe({
-      next: (result) => {
+      next: (result: ClassificationResult) => {
+        this.loading = false;
+        if (!result) {
+          this.snackbarService.showError("Couldn't reach server. Try again.");
+          return;
+        }
         this.result = result;
         const hist = this.historyService.saveToHistory(result);
         this.history.push(hist);
-        this.loading = false;
       },
       error: (err) => {
         this.snackbarService.handleError(err);
