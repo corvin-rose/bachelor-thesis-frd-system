@@ -15,7 +15,7 @@ class FrdControllerTestCase(TestCase):
         self.service_mock = MagicMock()
 
     # https://docs.python.org/3/library/unittest.mock.html
-    @patch('backend.core.domain.service.frd_service.FRDService.classify', return_value={})
+    @patch('backend.core.domain.service.frd_service.FrdService.classify', return_value={})
     def test_classify_post_method(self, service_mock):
         # given
         data = json.dumps('Test review')

@@ -14,7 +14,7 @@ class FrdServiceTestCase(TestCase):
         fake_probability = 0.02     # Text ist real
         model_mock = MagicMock()
         model_mock.classify.return_value = fake_probability
-        self.service.model = model_mock
+        self.service._bert_class = model_mock
 
         # when
         result = self.service.classify("real")
@@ -28,7 +28,7 @@ class FrdServiceTestCase(TestCase):
         fake_probability = 0.95      # Text ist fake
         model_mock = MagicMock()
         model_mock.classify.return_value = fake_probability
-        self.service.model = model_mock
+        self.service._bert_class = model_mock
 
         # when
         result = self.service.classify("fake")

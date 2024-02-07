@@ -5,11 +5,11 @@ from backend.port.adapter.bert_class import load_bert_model
 
 class FrdService:
     def __init__(self, model=load_bert_model()):
-        self.model = model
+        self._bert_class = model
 
     def classify(self, text: str):
         # Ermitteln der Wahrscheinlichkeit für fake
-        probability = self.model.classify(text)
+        probability = self._bert_class.classify(text)
         # Wahrscheinlichkeit interpretieren (fake oder real)
         result = Authenticity.FAKE if probability >= 0.5 else Authenticity.REAL
 
