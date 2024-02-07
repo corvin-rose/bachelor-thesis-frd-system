@@ -4,7 +4,7 @@ from rest_framework.test import APIRequestFactory
 from backend.port.web.base_controller import BaseController, API_KEY
 
 
-class BaseControllerTest(TestCase):
+class BaseControllerTestCase(TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.controller = BaseController()

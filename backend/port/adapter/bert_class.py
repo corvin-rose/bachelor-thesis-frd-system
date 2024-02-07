@@ -1,12 +1,7 @@
 from django.core.cache import cache
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import time
 import transformers
 import torch
 import os
-from torch.utils.data import Dataset, DataLoader
 from transformers import BertTokenizer
 
 from torch import cuda
@@ -26,7 +21,7 @@ class BERTClass(torch.nn.Module):
         self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
         self.optimizer = torch.optim.Adam(params=self.parameters())
 
-        model_path = os.path.join(os.path.dirname(__file__), '../../resources/model_bert_25ep.pth')
+        model_path = os.path.join(os.path.dirname(__file__), '../../resources/model_bert_ep25_lr1e-05_drp0.2.pth')
         self.checkpoint = torch.load(model_path)
         self.load_state_dict(self.checkpoint['model_state_dict'])
         self.optimizer.load_state_dict(self.checkpoint['optimizer_state_dict'])
@@ -51,14 +46,12 @@ class BERTClass(torch.nn.Module):
         return inputs['input_ids'], inputs['attention_mask'], inputs['token_type_ids']
 
     def classify(self, text: str):
-        self.eval()  # Setzen Sie das Modell in den Evaluierungsmodus
+        self.eval()
 
-        with torch.no_grad():  # Deaktivieren Sie Gradientenberechnung
+        with torch.no_grad():
             input_ids, attention_mask, token_type_ids = self.prepare_text(text)
             output = self.forward(input_ids, attention_mask, token_type_ids)
             output = torch.sigmoid(output).cpu().detach().numpy()
-            # Je nach Ihrer Modellarchitektur und Aufgabe müssen Sie möglicherweise die Ausgabe anpassen
-            # Zum Beispiel: prediction = outputs.logits.argmax(-1) für Klassifizierungsaufgaben
 
         return output
 
